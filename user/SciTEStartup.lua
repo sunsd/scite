@@ -1,18 +1,22 @@
-cmd_windows = {
-    FileExplorer = 'explorer ',
-    InternetExplorer = 'start '
+DocumentRoot = '/htdocs'
+cmd = {
+    windows = {
+        FileExplorer = 'explorer ',
+        Browser = 'start '
+    },
+    unix = {
+        FileExplorer = 'xdg-open ',
+        Browser = 'xdg-open '
+    }
 }
-cmd_unix = {
-    FileExplorer = 'xdg-open ',
-    InternetExplorer = 'xdg-open '
-}
-function getcmd(mode)
+function getcmd(proc)
     if props['PLAT_WIN'] == '1' then
-        return cmd_windows[mode]
+        return cmd.windows[proc]
     elseif props['PLAT_GTK'] == '1' then
-        return cmd_unix[mode]
+        return cmd.unix[proc]
     end
 end
+
 -- only support path consist of ansi characters.
 function OpenFolder(dir)
     local cmd = getcmd("FileExplorer")
@@ -21,15 +25,18 @@ function OpenFolder(dir)
 end
 
 function Localhost(path)
-    local s, pos, url, host, root, cmd
-    root = 'htdocs'
-    host = 'localhost'  -- ensure host is right!
-    cmd = getcmd("InternetExplorer")
+    local s, pos, url, cmd
+    cmd = getcmd("Browser")
     if props['PLAT_WIN'] == '1' then
         s = string.gsub(path, '\\', '/')
     end
-    pos = string.find(s, root) or string.len(path)
-    url = 'http://'..host..string.sub(s, pos+string.len(root))
+    pos = string.find(s, DocumentRoot..'/')
+    if pos then
+        url = 'http://127.1'..string.sub(s, pos+string.len(DocumentRoot))
+    else
+        url = 'file:///'..s
+    end
+    url = string.gsub(url, ' ', '%%20')
     os.execute(cmd..url)
     s=nil
 end

@@ -309,7 +309,7 @@ NameError: mistake
     </p>
 	<p>
 	For <span class="windowsonly">Windows</span>:<br />
-	If any simple file name on the command line matches a directory name, the file open dialog appears - this is dependant upon the property
+	If any simple file name on the command line matches a directory name, the file open dialog appears - this is dependent upon the property
 	"open.dialog.in.file.directory"<br /><br />
 	If the property "buffers" is greater than one and the file name matches either a existing file or by means of a wildcard search, one or more files, the
 	matching files are loaded up to the property "buffers" count.  Directories are not considered a match in this case<br /><br />
@@ -1152,6 +1152,14 @@ NameError: mistake
           Setting this to 1 makes the tool bar visible at start up.
         </td>
       </tr>
+      <tr class="windowsonly" id='property-toolbar.large'>
+        <td>
+          toolbar.large
+        </td>
+        <td>
+          Setting this to 1 makes the tool bar larger and use larger icons.
+        </td>
+      </tr>
       <tr class="gtkonly" id='property-toolbar.usestockicons'>
         <td>
           toolbar.usestockicons
@@ -1574,7 +1582,7 @@ NameError: mistake
 
           <p>If even is not set, instead of having symmetrical UZs,
           the left and bottom UZs are extended up to right and top UZs respectively.<br />
-          This way, we favour the displaying of useful information: the begining of lines,
+          This way, we favour the displaying of useful information: the beginning of lines,
           where most code reside, and the lines after the caret, e.g., the body of a function.</p>
           <p>See the table below to see how these settings interact.<br />
           Default: xslop, yslop, xeven, yeven=1, width=50, all others = 0.</p>
@@ -1655,7 +1663,7 @@ NameError: mistake
           bookmark.alpha
         </td>
         <td>
-          The colours used to display bookmarks in the margin. If bookmark.fore is not set then
+          The colours used to display bookmarks in the margin. If bookmark.fore is empty then
           a blue sphere is used. When the margin is turned off, bookmarks are shown by a
           change in the background colour of the line with the translucency set with bookmark.alpha.
         </td>
@@ -2147,6 +2155,14 @@ NameError: mistake
 	<td>lexer.cpp.allow.dollars</td>
 	<td>Set to 0 to disallow the '$' character in identifiers with the cpp lexer.</td>
 	</tr>
+	<tr id='property-lexer.cpp.backquoted.strings'>
+	<td>lexer.cpp.backquoted.strings</td>
+	<td>Set to 1 to enable highlighting of back-quoted raw strings .</td>
+	</tr>
+	<tr id='property-lexer.cpp.escape.sequence'>
+	<td>lexer.cpp.escape.sequence</td>
+	<td>Set to 1 to enable highlighting of escape sequences in strings</td>
+	</tr>
 	<tr id='property-lexer.cpp.hashquoted.strings'>
 	<td>lexer.cpp.hashquoted.strings</td>
 	<td>Set to 1 to enable highlighting of hash-quoted strings.</td>
@@ -2283,6 +2299,9 @@ NameError: mistake
         Right, Up, Down, Insert, End, Home, Enter, Space, Tab, KeypadPlus, KeypadMinus,
         KeypadMultiply, KeypadDivide, Escape, Delete, PageUp, PageDown, Slash,
         Question, Equal, Win.
+        <br/>
+        On OS X the command key uses the modifier Ctrl+ as this eases using one setting between platforms and
+        the control key uses the modifier Control+.
         <br/>
         <div class="example">
 user.shortcuts=\<br/>
@@ -2636,6 +2655,32 @@ Prev File|IDM_PREVFILE|<br/>
           Use in-window strips rather than dialogs for performing Find or Replace commands.
         </td>
       </tr>
+      <tr id='property-find.strip.incremental'>
+        <td>
+          <a name='property-replace.strip.incremental'></a>
+         find.strip.incremental<br />
+	 replace.strip.incremental
+        </td>
+        <td>
+          Perform incremental search when typing in the find and replace strips.
+	  Set to 1 to enable incremental searching and 2 to enable both incremental searching
+	  and highlighting all matches. Highlighting all matches (2) can be slow on large files so
+	  should only be enabled when performance is reasonable.
+        </td>
+      </tr>
+      <tr id='property-find.indicator.incremental'>
+        <td>
+          find.indicator.incremental
+        </td>
+        <td>
+          Sets the indicator to use for find.strip.incremental=2 or replace.strip.incremental=2.
+	  This is a
+            <a href="#IndicatorProperty">structured property</a> with multiple attributes similar to:
+         <div class="example">
+              find.indicator.incremental=style:compositionthick,colour:#FFB700,under
+         </div>
+        </td>
+       </tr>
       <tr class="gtkonly" id='property-strip.button.height'>
         <td>
          strip.button.height
@@ -3014,9 +3059,7 @@ imports.include=fortran lisp
           and the bold, italics and eolfilled fields have no subvalue. The value
           "fore:#FF0000,font:Courier,size:14" represents 14 point, red Courier text.<br />
            A global style can be set up using style.*.<i>stylenumber</i>. Any style options set in
-          the global style will be inherited by each lexer style unless overridden.<br />
-	On GTK+, the font name should be prefixed with "!" such as "font:!Sans" to ensure Pango
-	anti-aliased fonts are used. If this is not done, an older font system will be used which may not work well.
+          the global style will be inherited by each lexer style unless overridden.
         </td>
       </tr>
       <tr>
